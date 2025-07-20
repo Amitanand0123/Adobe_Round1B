@@ -2,17 +2,14 @@
 FROM --platform=linux/amd64 python:3.10-slim
 
 # Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
-# Poetry and Transformers cache
-ENV POETRY_NO_INTERACTION=1
 ENV HF_HOME=/app/models
+ENV TRANSFORMERS_CACHE=/app/models
 
-# Install system dependencies required for pdf2image and opencv
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     poppler-utils \
-    libgl1 \
+    libgl1-mesa-glx \
     libglib2.0-0 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -20,19 +17,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Set working directory
 WORKDIR /app
 
-# Copy requirements first to leverage Docker cache
+# Copy requirements file
 COPY requirements.txt .
 
-# Install Python dependencies, including CPU-specific torch versions
-RUN pip install --no-cache-dir torch==2.1.2+cpu torchvision==0.16.2+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html && \
-    pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Download and cache the NLP models to be included in the image
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')" && \
-    python -m spacy download en_core_web_sm
+# Pre-download and cache the models
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+RUN python -c "import spacy; spacy.cli.download('en_core_web_sm')" || echo "Spacy model download skipped"
 
-# Copy application source code
-COPY src/ ./src/
+# Copy source code
+COPY pdf_processor.py .
+COPY hierarchy_builder.py .
+COPY content_chunker.py .
+COPY semantic_ranker.py .
+COPY main.py .
 
-# Set the entry point for the container
-CMD ["python", "-m", "src.main"]
+# Copy input directory with all PDFs and JSON files
+COPY input/ /app/input/
+
+# Create output directory
+RUN mkdir -p /app/output
+
+# Set the command to run the application
+CMD ["python", "main.py"]

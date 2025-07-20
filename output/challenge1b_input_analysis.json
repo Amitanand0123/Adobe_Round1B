@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "input_documents": [
+      "South of France - Cities.pdf",
+      "South of France - Cuisine.pdf",
+      "South of France - History.pdf",
+      "South of France - Restaurants and Hotels.pdf",
+      "South of France - Things to Do.pdf",
+      "South of France - Tips and Tricks.pdf",
+      "South of France - Traditions and Culture.pdf"
+    ],
+    "persona": "Travel Planner",
+    "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
+    "processing_timestamp": "2025-07-20T15:29:49.507100"
+  },
+  "extracted_sections": [
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "The Ultimate South of France Travel Companion: Your Comprehensive Guide to Packing, Planning, and Exploring",
+      "page_number": 8,
+      "importance_rank": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "Ultimate Guide to Activities and Things to Do in the South of France",
+      "page_number": 9,
+      "importance_rank": 2
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "Comprehensive Guide to Restaurants and Hotels in the South of France",
+      "page_number": 12,
+      "importance_rank": 3
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "A Comprehensive Guide to Traditions and Culture in the South of France",
+      "page_number": 4,
+      "importance_rank": 4
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "The Ultimate South of France Travel Companion: Your Comprehensive Guide to Packing, Planning, and Exploring",
+      "refined_text": "- Pack a Day Bag: Bring a small day bag for daily excursions. - Leave Room for Souvenirs: Leave extra space or bring a foldable bag for souvenirs. - Additional Tips: Pack a small travel umbrella, a reusable shopping bag, and a portable phone charger. Consider using a luggage scale to avoid overweight baggage fees. Conclusion Packing for a trip to the South of France involves considering the season, planned activities, and the needs of both adults and children. By following this comprehensive gui...",
+      "page_number": 8
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "The Ultimate South of France Travel Companion: Your Comprehensive Guide to Packing, Planning, and Exploring",
+      "refined_text": "be handy for longer trips. - Multi-Purpose Shoes: Choose shoes that are comfortable for walking but can also be worn to a nice dinner. - Travel Pillow and Blanket: A compact travel pillow and blanket can make long flights or train rides more comfortable. - Ziplock Bags: Use ziplock bags for liquids, snacks, or to keep items organized and protected from spills. - Emergency Contact List: Have a list of emergency contacts, including local embassy or consulate information.",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "Ultimate Guide to Activities and Things to Do in the South of France",
+      "refined_text": "- Gorges du Tarn: Go on a family-friendly hike and enjoy the scenic views. - Lake Annecy: Rent bikes and ride along the lake's picturesque bike paths. - Pyrenees: Take a cable car ride for stunning mountain views and easy hiking trails. - Dordogne: Explore the region's caves and prehistoric sites with guided tours suitable for children. Educational Experiences - Toulouse: Visit Cité de l'Espace for a space-themed science museum with interactive exhibits, a planetarium, and a replica of the Mir s...",
+      "page_number": 9
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "Ultimate Guide to Activities and Things to Do in the South of France",
+      "refined_text": "- Toulon : Dive into the underwater world with scuba diving excursions to explore wrecks. - Cerbère-Banyuls : Visit the marine reserve for an unforgettable diving experience. - Mediterranean Coast : Charter a yacht or join a sailing tour to explore the coastline and nearby islands. - Marseille : Go windsurfing or kitesurfing in the windy bays. - Port Grimaud : Rent a paddleboard and explore the canals of this picturesque village. - La Ciotat : Try snorkeling in the clear waters around the Île Ve...",
+      "page_number": 2
+    }
+  ]
+}
