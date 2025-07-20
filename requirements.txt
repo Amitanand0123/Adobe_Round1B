@@ -1,0 +1,19 @@
+# For AI and Layout Parsing
+paddlepaddle==2.6.1
+layoutparser==0.3.4
+# Note: torch/torchvision are installed separately in the Dockerfile for CPU version
+
+# For PDF and Image Processing
+pdfplumber==0.11.0
+pdf2image==1.17.0
+Pillow==10.2.0
+opencv-python-headless==4.9.0.80
+
+# For Data Handling and Machine Learning
+numpy==1.26.4
+scikit-learn==1.4.1.post1
+
+# For Semantic Analysis and NLP
+sentence-transformers==2.7.0
+spacy==3.7.4
+# torch and torchvision will be installed via pip with CPU support
