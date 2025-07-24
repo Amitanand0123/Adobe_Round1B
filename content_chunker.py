@@ -10,8 +10,8 @@ class AdvancedContentChunker:
     """
     Intelligently groups raw text blocks into meaningful content chunks
     """
-    MIN_CHUNK_WORD_COUNT = 15
-    MAX_CHUNK_WORD_COUNT = 300
+    MIN_CHUNK_WORD_COUNT = 50
+    MAX_CHUNK_WORD_COUNT = 700
 
     def __init__(self):
         logger.info("Advanced Content Chunker initialized")
@@ -58,7 +58,7 @@ class AdvancedContentChunker:
 
     def _is_meaningful_content(self, text: str) -> bool:
         """Determine if text contains meaningful, specific content"""
-        if len(text.split()) < 10:
+        if len(text.split()) < 25:
             return False
         
         # Avoid generic introductory text
@@ -97,8 +97,6 @@ class AdvancedContentChunker:
 
         # Truncate if too long
         words = chunk_text.split()
-        if len(words) > self.MAX_CHUNK_WORD_COUNT:
-            chunk_text = " ".join(words[:self.MAX_CHUNK_WORD_COUNT]) + "..."
 
         # Calculate content quality score
         content_density = self._calculate_content_density(chunk_text)

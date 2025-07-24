@@ -2,6 +2,8 @@ Round 1B: Persona-Driven Document Intelligence
 
 ## Overview
 Our solution implements a semantic-driven document analysis system that intelligently extracts and prioritizes content based on persona requirements and job-to-be-done tasks.
+docker build -t acrobat2 .
+docker run --rm -v "%cd%\input:/app/input" -v "%cd%\output:/app/output" --network none acrobat2
 
 ## Core Components
 

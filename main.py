@@ -123,7 +123,7 @@ def select_best_subsections(ranked_chunks: List[Dict], max_subsections: int = 5)
             selected_subsections.append({
                 'document': chunk['document'],
                 'section_title': chunk['section_title'],
-                'refined_text': chunk['text'][:500] + "..." if len(chunk['text']) > 500 else chunk['text'],
+                'refined_text': chunk['text'],
                 'page_number': chunk['page_number'],
                 'relevance_score': chunk['relevance_score']
             })
