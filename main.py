@@ -112,13 +112,13 @@ def select_best_subsections(ranked_chunks: List[Dict], max_subsections: int = 5)
         doc_name = chunk['document']
         
         # Limit subsections per document to ensure diversity
-        if document_count.get(doc_name, 0) >= 2:
+        if document_count.get(doc_name, 0) >= 3:
             continue
         
         # Ensure the chunk has good content quality
-        if (chunk.get('relevance_score', 0) > 0.3 and 
-            chunk.get('specificity_score', 0) > 0.2 and
-            len(chunk.get('text', '').split()) >= 20):
+        if (chunk.get('relevance_score', 0) > 0.25 and 
+            chunk.get('specificity_score', 0) > 0.15 and
+            len(chunk.get('text', '').split()) >= 40):
             
             selected_subsections.append({
                 'document': chunk['document'],

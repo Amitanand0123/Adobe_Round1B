@@ -1,0 +1,25 @@
+# Create this .dockerignore file in your project root to exclude unnecessary files
+
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.git
+.gitignore
+README.md
+.pytest_cache
+.coverage
+.env
+*.log
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.egg-info/
+build/

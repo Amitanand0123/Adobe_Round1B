@@ -1,12 +1,12 @@
-# Use a slim Python base image with the specified platform
+# Dockerfile - Lightweight Version
+
+# Use a slim Python image as the base
 FROM --platform=linux/amd64 python:3.10-slim
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV HF_HOME=/app/models
-ENV TRANSFORMERS_CACHE=/app/models
+# Set the working directory in the container
+WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies required for pdf2image and pdfplumber
 RUN apt-get update && apt-get install -y --no-install-recommends \
     poppler-utils \
     libgl1-mesa-glx \
@@ -14,31 +14,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
-WORKDIR /app
-
-# Copy requirements file
+# Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install Python dependencies
+# Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-download and cache the models
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
-RUN python -c "import spacy; spacy.cli.download('en_core_web_sm')" || echo "Spacy model download skipped"
+# Copy all your source code into the container
+COPY . .
 
-# Copy source code
-COPY pdf_processor.py .
-COPY hierarchy_builder.py .
-COPY content_chunker.py .
-COPY semantic_ranker.py .
-COPY main.py .
-
-# Copy input directory with all PDFs and JSON files
-COPY input/ /app/input/
-
-# Create output directory
+# Create the output directory
 RUN mkdir -p /app/output
 
-# Set the command to run the application
+# Set the command to run the application when the container starts
 CMD ["python", "main.py"]

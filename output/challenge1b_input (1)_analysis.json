@@ -19,13 +19,13 @@
     ],
     "persona": "HR professional",
     "job_to_be_done": "Create and manage fillable forms for onboarding and compliance.",
-    "processing_timestamp": "2025-07-24T23:01:05.044980"
+    "processing_timestamp": "2025-07-25T08:43:08.000374"
   },
   "extracted_sections": [
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
-      "section_title": "Types of PDF forms",
-      "page_number": 2,
+      "section_title": "Change flat forms to fillable (Acrobat Pro)",
+      "page_number": 12,
       "importance_rank": 1
     },
     {
@@ -41,19 +41,37 @@
       "importance_rank": 3
     },
     {
-      "document": "Learn Acrobat - Request e-signatures_1.pdf",
-      "section_title": "What if my organization isn’t prepared to set up certificate- based signatures?",
-      "page_number": 21,
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "section_title": "Note: If you are signing for the first time, you see the Signature or Initials panel as",
+      "page_number": 17,
       "importance_rank": 4
     },
     {
-      "document": "Learn Acrobat - Request e-signatures_1.pdf",
-      "section_title": "Note: If you have added multiple files, the files are converted into PDFs and combined into a",
-      "page_number": 14,
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "section_title": "Types of PDF forms",
+      "page_number": 2,
       "importance_rank": 5
     }
   ],
   "subsection_analysis": [
+    {
+      "document": "Learn Acrobat - Request e-signatures_1.pdf",
+      "section_title": "Note: Signers are not required to sign up or purchase any Adobe product to sign agreements.",
+      "refined_text": "1. Select the Send in Bulk tool as explained earlier. The Send in bulk file upload page is displayed. 2. Add a file : Upload (by search or drag-and-drop) the primary file that you are using to build your agreement template. The selector on the right of the Select a file button allows you to choose from the source where the file resides. The default is your local system. Once a file is selected, the configuration page loads. 3. Add participants : 1. List the participants required. - The Sign action is assigned by default. - The Sign action allows the participant to enter field data and sign the agreement. - Up to 50 participants are supported. - Each participant listed receives their own agreement. 2. Enter recipient email addresses followed by commas, or copy and paste a list of email addresses into the Email field. 3. Configure participant authentication by clicking the key icon to the right of the participant. - Email is the default authentication method for confirming the identity of each participant and is sufficient to obtain a legal signature in most cases.",
+      "page_number": 9
+    },
+    {
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "section_title": "Clear unsaved form entries",
+      "refined_text": "You can sign a document to attest to its contents or approve the document. This document explains how to sign a document or agreement using Acrobat or Reader desktop application. To sign a PDF document or form, you can type, draw, or insert an image of your handwritten signature. You can also add text, such as your name, company, title, or date. When you save the document, the signature and text become part of the PDF. Note: You can also capture a picture of your signature on mobile using Adobe Acrobat Reader mobile app and save it in Adobe cloud storage so that it's synced and available for use across your desktop and other mobile devices. 1. Open the PDF document. Select E-sign from the global bar. 2. Create your signature and initials if not already done. To do so: 1. To add a signature, select Add signature. In the dialog that appears, type, draw, or add an image of your signature and then select Done. 2. To add your initials, select Add initials. In the dialog that appears, type, draw, or add an image of your initials and then select Done. 3. Select your signature. 4. The form fields are detected automatically. Hover the mouse over a field to display a blue box. Click anywhere in the blue box, the cursor will be placed at the right position automatically. Type your text to fill the field. To fill the PDF form with your desired color, from the Quick actions toolbar, select the Color icon and then select a color. By default, the signature color is black. To retain the default color of the signature, make sure the Keep signatures black option is unchecked. 5. If you've already added your signature or initials, just select it from the Sign options, and then click at the place in the PDF where you want to add your signature. Skip to the next step. If you are signing for the first time, you see the Signature or Initials panel. Below is an example of the Signature panel. 6. Select Apply , and then click on the place in the PDF where you want to place the signature or initial. 7. To move the placed signature or initial, select the field to highlight it and then use the arrow keys. To resize or delete the field, use the options in the field toolbar. Note:",
+      "page_number": 15
+    },
+    {
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "section_title": "Note: If you are signing for the first time, you see the Signature or Initials panel as",
+      "refined_text": "1. Select the link of the agreement received in your email for signing. The agreement opens in a web browser. 2. Select the fields and enter the requested information. 3. Select the signature field and then select Apply . - Type: Type your name in the field. You can choose from a small selection of signature styles; click Change Style to view a different style. - Draw: Draw your signature in the field. - Image: Browse and select an image of your signature. - Mobile: Select this option to create your signature on a mobile device. Enter your mobile number and click Send. A link is sent to your mobile. Clicking the link opens the web browser on your mobile device where you can draw or select an image of your signature. - Save: When this check box is selected, and you're signed in to Acrobat Reader or Acrobat, the added signature is saved securely in Adobe cloud storage for reuse. 4. Select Click To Sign .",
+      "page_number": 17
+    },
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
       "section_title": "Types of PDF forms",
@@ -61,10 +79,10 @@
       "page_number": 2
     },
     {
-      "document": "Learn Acrobat - Request e-signatures_1.pdf",
-      "section_title": "Note: Signers are not required to sign up or purchase any Adobe product to sign agreements.",
-      "refined_text": "1. Select the Send in Bulk tool as explained earlier. The Send in bulk file upload page is displayed. 2. Add a file : Upload (by search or drag-and-drop) the primary file that you are using to build your agreement template. The selector on the right of the Select a file button allows you to choose from the source where the file resides. The default is your local system. Once a file is selected, the configuration page loads. 3. Add participants : 1. List the participants required. - The Sign action is assigned by default. - The Sign action allows the participant to enter field data and sign the",
-      "page_number": 9
+      "document": "Learn Acrobat - Edit_1.pdf",
+      "section_title": "Edit images or objects in a PDF",
+      "refined_text": "1. Open a PDF, and then from the All tools menu, select Edit a PDF . .From the left panel, select More from under Add Content to expand the menu and select a desired tool. 2. To add a button: 1. From the left menu, select Button . 2. Once the button coordinates appear, move the mouse to a desired location and place the button. 3. In the dialog that appears, provide a name to the button. 4. To change the properties of the button, double-click the button and then select in the dialog that appears, set the properties as desired. 3. To add a video: 1. From the left menu, select Video . 2. Drag your cursor on the document where you want to add the video. 3. In the Insert Video dialog that appears, browse and select the video file that you want to add. 4. Select OK . 4. To add sound to the PDF: 1. From the left menu, select Sound . 2. Drag the cursor over the text or image that you want to add sound to. 3. In the Insert Sound dialog that appears, browse and select the audio file that you want to add.",
+      "page_number": 15
     }
   ]
 }

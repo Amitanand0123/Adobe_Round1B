@@ -126,7 +126,7 @@ class AdvancedContentChunker:
             all_chunks.extend(section_chunks)
             
         # Filter out low-quality chunks
-        quality_chunks = [chunk for chunk in all_chunks if chunk.get('content_density', 0) > 0.3]
+        quality_chunks = [chunk for chunk in all_chunks if chunk.get('content_density', 0) > 0.2]
         
         logger.info(f"Created {len(quality_chunks)} quality chunks from {len(all_blocks)} blocks")
         return quality_chunks
@@ -238,16 +238,16 @@ class AdvancedContentChunker:
                 if current_chunk_blocks:
                     # Check if we should start a new chunk
                     prev_block = current_chunk_blocks[-1]
-                    
+                
                     # Calculate vertical gap
                     vertical_gap = block['bbox'][1] - prev_block['bbox'][3]
                     avg_font_size = (block.get('font_size', 12) + prev_block.get('font_size', 12)) / 2
-                    
+                
                     # Start new chunk if large vertical gap or significant content change
                     is_new_chunk = (
-                        vertical_gap > avg_font_size * 1.8 or
-                        abs(block.get('font_size', 12) - prev_block.get('font_size', 12)) > 2 or
-                        len(current_chunk_blocks) > 8  # Prevent overly long chunks
+                        vertical_gap > avg_font_size * 2.5 or  # Changed from 1.8 to 2.5
+                        abs(block.get('font_size', 12) - prev_block.get('font_size', 12)) > 3 or  # Changed from 2 to 3
+                        len(current_chunk_blocks) > 15  # Changed from 8 to 15
                     )
                     
                     if is_new_chunk:
