@@ -1,49 +1,121 @@
-Round 1B: Persona-Driven Document Intelligence
+#### Methodology for Intelligent Document Analysis and Ranking
 
-## Overview
-Our solution implements a semantic-driven document analysis system that intelligently extracts and prioritizes content based on persona requirements and job-to-be-done tasks.
-docker build -t acrobat2 .
-docker run --rm -v "%cd%\input:/app/input" -v "%cd%\output:/app/output" --network none acrobat2
+This system implements a sophisticated, multi-stage pipeline designed to intelligently analyze a collection of PDF documents, understand their structure, and extract the most relevant content tailored to a specific user persona and task. The approach moves beyond simple keyword matching by integrating structural analysis, content chunking, and a hybrid semantic ranking model.
 
-## Core Components
+**Phase 1: Document Ingestion and Structural Reconstruction**
 
-### 1. Document Processing Pipeline
-- **PDF Processing**: Uses pdfplumber to extract structured text with positional information
-- **Hierarchy Building**: Identifies document structure (headings, sections) using font size, positioning, and formatting cues
-- **Content Chunking**: Groups related text blocks into meaningful semantic units while preserving context
+The process begins with the `PDFProcessor`, which ingests raw PDF files. It uses the `pdfplumber` library to extract detailed information about every text block, including its content, font size, style, and precise location on the page. This granular data is crucial for the next step, where the `HierarchyBuilder` reconstructs the document's logical outline. By analyzing features like font size, boldness, and centrality, the builder identifies potential headings. It then employs a KMeans clustering algorithm on the font sizes of these candidates to programmatically classify them into distinct levels (e.g., H1, H2, H3), effectively rebuilding the document's table of contents even when one is not explicitly available.
 
-### 2. Semantic Understanding
-- **Sentence Transformers**: Employs `all-MiniLM-L6-v2` model for generating high-quality text embeddings
-- **Multi-Query Matching**: Creates relevant search queries from persona and task descriptions
-- **Cosine Similarity**: Calculates semantic similarity between content chunks and user requirements
+**Phase 2: Intelligent Content Chunking**
 
-### 3. Intelligent Ranking System
-Our ranking combines multiple signals:
-- **Semantic Similarity**: Primary relevance score using transformer embeddings
-- **Keyword Matching**: Bonus scoring for domain-specific terms extracted from persona/task
-- **Section Title Relevance**: Higher weight for content in relevant sections
-- **Context Awareness**: Considers document structure and section hierarchy
+With the document's structure established, the `AdvancedContentChunker` takes over. It intelligently associates all text blocks with their corresponding sections from the generated outline. Its primary role is to group related text into meaningful, coherent "chunks." This process is not arbitrary; it uses heuristics to identify logical breaks in content, such as large vertical gaps, changes in font style, or the start of bulleted lists. Furthermore, it filters out low-value content by assessing "content density" and ensuring chunks meet a minimum length, thus eliminating generic phrases and focusing on substantive information.
 
-### 4. Keyword Extraction Strategy
-We implement domain-aware keyword extraction:
-- **Role-based Keywords**: Different keyword sets for researchers, students, analysts
-- **Task-specific Terms**: Extract action-oriented keywords from job descriptions
-- **Dynamic Adaptation**: System adapts to various domains (academic, business, technical)
+**Phase 3: Multi-faceted Semantic Ranking**
 
-### 5. Output Generation
-- **Top Sections**: Identifies 5 most relevant document sections with importance ranking
-- **Subsection Analysis**: Provides detailed analysis of top content chunks
-- **Metadata Tracking**: Maintains complete audit trail of processing
+The core of the system is the `SemanticRanker`. Instead of relying on a single metric, it calculates a comprehensive relevance score from multiple weighted factors. The primary component is semantic similarity, calculated using a TF-IDF (Term Frequency-Inverse Document Frequency) vectorizer and cosine similarity. This measures the contextual relevance between user queries and the content chunks.
 
-## Technical Optimizations
-- **Efficient Processing**: Batch encoding for improved performance
-- **Memory Management**: Streaming processing for large document collections
-- **Model Caching**: Pre-loads models in Docker container for faster execution
-- **Error Handling**: Robust error handling for various PDF formats and edge cases
+This semantic score is then blended with several other critical signals:
+*   **Persona Alignment:** The score is boosted if the chunk contains terminology specific to the user's role (e.g., "methodology" for a researcher, "revenue" for a business analyst).
+*   **Content Specificity:** Content with actionable details—such as lists, tables, figures, or numerical data—is prioritized.
+*   **Section Importance:** Pre-defined rules assign higher value to sections like "Conclusion" or "Results" over "Introduction."
+*   **Keyword Matching:** Direct matches for keywords from the persona and task descriptions contribute to the score.
 
-## Scalability Features
-- **Generic Design**: Works across diverse document types and domains
-- **Configurable Ranking**: Easily adjustable weights for different use cases
-- **Modular Architecture**: Clean separation of concerns for maintainability
+By combining these elements, the ranker produces a holistic score that reflects not just what a chunk is about, but also how useful and appropriate it is for the user's specific need. The final ranked list of chunks is then used to generate the distilled, actionable output.
 
-This approach ensures high relevance scores by combining semantic understanding with domain expertise, making it effective across the diverse test cases specified in the challenge.
+***
+
+### `Dockerfile` and Execution Instructions
+
+Here is the provided `Dockerfile` and the instructions to build the image and run the analysis.
+
+#### Dockerfile
+
+```dockerfile
+# Dockerfile - Lightweight Version
+
+# Use a slim Python image as the base
+FROM --platform=linux/amd64 python:3.10-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install system dependencies required for pdf2image and pdfplumber
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    poppler-utils \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy all your source code into the container
+COPY . .
+
+# Create the output directory
+RUN mkdir -p /app/output
+
+# Set the command to run the application when the container starts
+CMD ["python", "main.py"]
+```
+
+#### Execution Instructions
+
+To run the document analysis pipeline using Docker, follow these steps.
+
+**1. Prerequisites**
+*   Ensure you have Docker installed and running on your system.
+
+**2. Directory Setup**
+Create a local directory structure for your input and output files. The application reads from an `input` directory and writes to an `output` directory.
+
+```bash
+mkdir -p my_project/input
+mkdir -p my_project/output
+cd my_project
+```
+
+**3. Place Your Files**
+*   **Source Code:** Place `main.py`, `semantic_ranker.py`, `pdf_processor.py`, `hierarchy_builder.py`, `content_chunker.py`, `Dockerfile`, and `requirements.txt` directly inside the `my_project` directory.
+*   **Input Data:** Place your PDF documents (e.g., `document1.pdf`) and the JSON configuration file (e.g., `config.json`) inside the `my_project/input` directory. The JSON file must reference the PDF filenames correctly.
+
+Your final directory structure should look like this:
+```
+my_project/
+├── Dockerfile
+├── main.py
+├── semantic_ranker.py
+├── pdf_processor.py
+├── hierarchy_builder.py
+├── content_chunker.py
+├── requirements.txt
+├── input/
+│   ├── config.json
+│   └── document1.pdf
+└── output/
+```
+
+**4. Build the Docker Image**
+From within the `my_project` directory, run the following command to build the Docker image. We will tag it `doc-analyzer`.
+
+```bash
+docker build -t doc-analyzer .
+```
+
+**5. Run the Analysis**
+Execute the following command to run the container. This command mounts your local `input` directory to `/app/input` in the container and your local `output` directory to `/app/output`. The application will start automatically.
+
+```bash
+docker run --rm \
+  -v "$(pwd)/input:/app/input" \
+  -v "$(pwd)/output:/app/output" \
+  doc-analyzer
+```
+*Note for Windows users:* You may need to replace `$(pwd)` with the full path to your project directory, like `C:\path\to\my_project`.
+
+**6. Check the Results**
+Once the script finishes execution, the analysis results will be saved as a JSON file (e.g., `config_analysis.json`) in your local `my_project/output` directory.
