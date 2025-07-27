@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "input_documents": [
+      "Breakfast Ideas.pdf",
+      "Dinner Ideas - Mains_1.pdf",
+      "Dinner Ideas - Mains_2.pdf",
+      "Dinner Ideas - Mains_3.pdf",
+      "Dinner Ideas - Sides_1.pdf",
+      "Dinner Ideas - Sides_2.pdf",
+      "Dinner Ideas - Sides_3.pdf",
+      "Dinner Ideas - Sides_4.pdf",
+      "Lunch Ideas.pdf"
+    ],
+    "persona": "Food Contractor",
+    "job_to_be_done": "Prepare a vegetarian buffet-style dinner menu for a corporate gathering, including gluten-free items.",
+    "processing_timestamp": "2025-07-26T04:49:34.913785"
+  },
+  "extracted_sections": [
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "section_title": "Ratatouille",
+      "page_number": 7,
+      "importance_rank": 1
+    },
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "section_title": "Pretzels",
+      "page_number": 5,
+      "importance_rank": 2
+    },
+    {
+      "document": "Dinner Ideas - Sides_1.pdf",
+      "section_title": "Banh Xeo",
+      "page_number": 5,
+      "importance_rank": 3
+    },
+    {
+      "document": "Dinner Ideas - Sides_2.pdf",
+      "section_title": "Empanadas",
+      "page_number": 6,
+      "importance_rank": 4
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "section_title": "Mapo Tofu",
+      "page_number": 10,
+      "importance_rank": 5
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "section_title": "Ratatouille",
+      "refined_text": "- Ingredients : o 1 eggplant o 1 zucchini o 1 bell pepper o 1 small onion o 2 cloves garlic o 4 tomatoes o 1 teaspoon thyme o 1 teaspoon rosemary o 1/4 cup olive oil o 1 teaspoon salt - Instructions : o Dice eggplant, zucchini, bell pepper, and tomatoes. o Sauté diced onion and minced garlic in olive oil until softened. o Add eggplant, zucchini, bell pepper, tomatoes, thyme, rosemary, and salt. o Simmer for 30 minutes, stirring occasionally. o Serve warm. Rau Muong Xao Toi (Stir-Fried Morning Glory with Garlic) - Ingredients : o 1 pound morning glory o 4 cloves garlic o 2 tablespoons fish sauce o 1 tablespoon vegetable oil - Instructions : o Sauté minced garlic in vegetable oil until fragrant. o Add morning glory and stir-fry until tender. o Add fish sauce and cook for 2 minutes. o Serve warm.",
+      "page_number": 7
+    },
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "section_title": "Pretzels",
+      "refined_text": "- Ingredients : o 2 1/4 teaspoons active dry yeast o 1 teaspoon sugar o 1 cup warm water o 3 cups flour o 1 teaspoon salt o 1/4 cup baking soda o 1 egg o Coarse salt - Instructions : o Dissolve yeast and sugar in warm water, let sit until foamy. o Mix flour and salt in a bowl, then add yeast mixture. o Knead until smooth, then let rise until doubled. o Divide dough into pieces and roll into ropes, then shape into pretzels. o Boil water with baking soda and dip pretzels in the solution. o Place on a baking sheet, brush with beaten egg, and sprinkle with coarse salt. o Bake at 450°F (230°C) for 12-15 minutes until golden. o Serve warm.",
+      "page_number": 5
+    },
+    {
+      "document": "Dinner Ideas - Sides_1.pdf",
+      "section_title": "Banh Xeo",
+      "refined_text": "- Ingredients : o 1 cup rice flour o 1/2 cup coconut milk o 1/2 cup water o 1/2 pound shrimp o 1/2 pound pork o 1 small onion o 1/2 cup bean sprouts o 1/4 cup green onions o 1/4 cup cilantro o 1 teaspoon turmeric o 1 teaspoon salt o Oil for frying - Instructions : o Mix rice flour, coconut milk, water, turmeric, and salt to form a batter. o Sauté sliced pork, shrimp, and diced onion until cooked. o Heat oil in a pan and pour in a ladle of batter, swirling to coat the pan. o Add cooked pork, shrimp, bean sprouts, green onions, and cilantro. o Fold pancake in half and cook until crispy. o Serve with lettuce and dipping sauce.",
+      "page_number": 5
+    },
+    {
+      "document": "Dinner Ideas - Sides_2.pdf",
+      "section_title": "Empanadas",
+      "refined_text": "- Ingredients : o 2 cups flour o 1/2 cup butter o 1/4 cup water o 1 egg o 1/2 pound ground beef o 1 small onion o 2 cloves garlic o 1/4 cup olives o 1/4 cup raisins o 1 teaspoon cumin o 1 teaspoon paprika o 1 teaspoon salt o Oil for frying - Instructions : o Mix flour, butter, water, and beaten egg to form a dough, then let rest. o Sauté ground beef, diced onion, minced garlic, chopped olives, and raisins with cumin, paprika, and salt until cooked. o Roll out dough and cut into circles. o Place a spoonful of filling on each circle and fold to seal. o Fry in hot oil until golden. o Drain on paper towels and serve warm.",
+      "page_number": 6
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "section_title": "Mapo Tofu",
+      "refined_text": "- Ingredients : o 1 block tofu o 1/2 pound ground pork o 1 small onion o 2 cloves garlic o 1 tablespoon chili bean paste o 2 tablespoons soy sauce o 1 tablespoon rice wine o 1 teaspoon sugar o 1/4 cup chicken broth o 1 tablespoon cornstarch o 1/4 cup chopped green onions - Instructions : o Cut tofu into cubes and set aside. o Sauté ground pork, diced onion, and minced garlic until browned. o Add chili bean paste, soy sauce, rice wine, and sugar, cook for 2 minutes. o Add chicken broth and tofu, simmer for 5 minutes. o Mix cornstarch with water and add to the pan, stirring until thickened. o Garnish with chopped green onions and serve.",
+      "page_number": 10
+    }
+  ]
+}

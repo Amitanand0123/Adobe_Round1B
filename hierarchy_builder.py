@@ -50,6 +50,9 @@ class HierarchyBuilder:
             return False
         if features['text'].isdigit():
             return False
+        
+        if features['is_bold'] and features['word_count'] < 8 and features['font_size'] >= 11:
+            return True
 
         if features['font_size'] > 20 and features['word_count'] < 15:
             return True
