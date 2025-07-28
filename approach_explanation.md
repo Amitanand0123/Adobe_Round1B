@@ -1,28 +1,65 @@
-Of course. Here is a well-structured `approach_explanation.md` file based on the Python scripts and project description you've provided.
+```markdown
+### Execution Instructions
 
-***
+To build the Docker image and run the document analysis pipeline, please follow the steps below.
 
-### Methodology: Persona-Driven Document Intelligence
+**1. Prerequisites**
 
-Our system is engineered to function as an intelligent document analyst, moving beyond simple keyword searches to deliver nuanced, persona-driven insights from a collection of PDFs. The core methodology is a multi-stage pipeline that deconstructs, comprehends, and ranks document content to find the most relevant information for a specific user and their task.
+*   Ensure Docker is installed and running on your system.
 
-**Phase 1: Structural Reconstruction**
+**2. Directory Setup**
 
-The process begins with the `PDFProcessor`, which ingests raw PDFs and extracts not just text, but also critical metadata for each text block—font size, style, and precise page coordinates. This granular data feeds into the `HierarchyBuilder`, which reconstructs the document's logical outline. By analyzing typographic cues like font size, boldness, and centrality, the builder identifies potential headings. It then employs a KMeans clustering algorithm on the font sizes of these candidates to programmatically classify them into distinct hierarchical levels (e.g., H1, H2, H3). This allows our system to understand the document's structure even without an explicit table of contents.
+Create a local directory structure for the input and output files. The application is designed to read from an `input` directory and write the analysis results to an `output` directory.
 
-**Phase 2: Intelligent Content Chunking**
+```bash
+# Create the project directory and subdirectories
+mkdir -p my_project/input
+mkdir -p my_project/output
+cd my_project
+```
 
-With the document's hierarchy established, the `AdvancedContentChunker` intelligently associates all text blocks with their corresponding sections. It then segments the content into meaningful, coherent "chunks." This process is guided by heuristics that identify logical breaks, such as large vertical gaps or changes in font style, ensuring that each chunk represents a self-contained idea. Furthermore, it filters out low-value content, like generic phrases or short, non-substantive sentences, by assessing the "content density" of each block, thereby focusing only on substantive information.
+**3. Place Your Files**
 
-**Phase 3: Multi-Faceted Semantic Ranking**
+*   **Source Code:** Place `main.py`, `semantic_ranker.py`, `pdf_processor.py`, `hierarchy_builder.py`, `content_chunker.py`, `Dockerfile`, and `requirements.txt` directly inside the `my_project` directory.
+*   **Input Data:** Place the PDF documents and the JSON configuration file (e.g., `config.json`) inside the `my_project/input` directory. The JSON file must reference the PDF filenames correctly.
 
-The core of our intelligence lies in the `SemanticRanker`. Instead of relying on a single metric, it calculates a comprehensive relevance score from multiple weighted factors. The primary component is a semantic similarity score, calculated using a TF-IDF vectorizer and cosine similarity, which measures the contextual relevance between the user's query and each content chunk.
+Your final directory structure should look like this:
 
-This semantic score is then blended with several other critical signals:
+```
+my_project/
+├── Dockerfile
+├── main.py
+├── semantic_ranker.py
+├── pdf_processor.py
+├── hierarchy_builder.py
+├── content_chunker.py
+├── requirements.txt
+├── input/
+│   ├── config.json
+│   └── document1.pdf
+└── output/
+```
 
-*   **Persona Alignment:** The score is boosted if a chunk contains terminology specific to the user’s professional role (e.g., "methodology" for a researcher).
-*   **Content Specificity:** Actionable content with lists, figures, or numerical data is prioritized.
-*   **Section Importance:** Pre-defined rules assign higher value to sections like "Conclusion" or "Results" over introductory material.
-*   **Keyword Matching:** Direct keyword matches from the persona and task descriptions provide an additional relevance signal.
+**4. Build the Docker Image**
 
-By combining structural analysis with this hybrid ranking model, our system delivers a ranked list of sections and subsections that are not just contextually relevant but also tailored to the user's specific needs and perspective, effectively connecting the user with the information that matters most.
+From within the `my_project` directory, execute the following command to build the Docker image. The image will be tagged as `doc-analyzer`.
+
+```bash
+docker build -t doc-analyzer .```
+
+**5. Run the Analysis**
+
+Execute the following command to run the container. This command mounts your local `input` directory to `/app/input` and your `output` directory to `/app/output` inside the container. The application will start automatically and process all JSON configurations found in the input directory.
+
+```bash
+docker run --rm \
+  -v "$(pwd)/input:/app/input" \
+  -v "$(pwd)/output:/app/output" \
+  doc-analyzer
+```
+*(Note for Windows users: You may need to replace `$(pwd)` with the full path to your project directory, such as `C:\path\to\my_project`)*
+
+**6. Check the Results**
+
+Once the script finishes execution, the analysis results will be saved as a JSON file (e.g., `config_analysis.json`) in your local `my_project/output` directory.
+```
