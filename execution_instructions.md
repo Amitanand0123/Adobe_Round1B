@@ -1,15 +1,18 @@
-```markdown
-### Execution Instructions
+# **Execution Instructions**
 
-To build the Docker image and run the document analysis pipeline, please follow the steps below.
+This document provides the necessary steps to build the Docker image and run the solution for both **Round 1A (Understand Your Document)** and **Round 1B (Persona-Driven Document Intelligence)**. The entire application is containerized in a single image to ensure a consistent and reproducible environment.
 
-**1. Prerequisites**
+## **Prerequisites**
 
-*   Ensure Docker is installed and running on your system.
+*   [Docker](https://www.docker.com/products/docker-desktop/) must be installed and running on your system.
 
-**2. Directory Setup**
+## **Directory and File Setup**
 
-Create a local directory structure for the input and output files. The application is designed to read from an `input` directory and write the analysis results to an `output` directory.
+Before running the container, prepare a local directory. The application is designed to read from an `input` subdirectory and write all analysis results to an `output` subdirectory.
+
+1.  Create a root project folder (e.g., `my_project`).
+2.  Inside `my_project`, create two subdirectories: `input` and `output`.
+3.  Place all your Python source code (`main.py`, `hierarchy_builder.py`, etc.), the `Dockerfile`, and `requirements.txt` directly inside the `my_project` directory.
 
 ```bash
 # Create the project directory and subdirectories
@@ -18,12 +21,7 @@ mkdir -p my_project/output
 cd my_project
 ```
 
-**3. Place Your Files**
-
-*   **Source Code:** Place `main.py`, `semantic_ranker.py`, `pdf_processor.py`, `hierarchy_builder.py`, `content_chunker.py`, `Dockerfile`, and `requirements.txt` directly inside the `my_project` directory.
-*   **Input Data:** Place the PDF documents and the JSON configuration file (e.g., `config.json`) inside the `my_project/input` directory. The JSON file must reference the PDF filenames correctly.
-
-Your final directory structure should look like this:
+The final directory structure before execution should look like this:
 
 ```
 my_project/
@@ -35,21 +33,32 @@ my_project/
 ├── content_chunker.py
 ├── requirements.txt
 ├── input/
-│   ├── config.json
-│   └── document1.pdf
 └── output/
 ```
 
-**4. Build the Docker Image**
+## **Step 1: Build the Docker Image**
 
-From within the `my_project` directory, execute the following command to build the Docker image. The image will be tagged as `doc-analyzer`.
+Navigate to the project's root directory (`my_project`) in your terminal. Run the following command to build the single Docker image that serves both parts of the challenge. The image will be tagged as `doc-analyzer`.
 
 ```bash
-docker build -t doc-analyzer .```
+docker build -t doc-analyzer .
+```
 
-**5. Run the Analysis**
+This command builds the image, packages all dependencies, and prepares it for execution.
 
-Execute the following command to run the container. This command mounts your local `input` directory to `/app/input` and your `output` directory to `/app/output` inside the container. The application will start automatically and process all JSON configurations found in the input directory.
+## **Step 2: Running the Solution**
+
+The same `docker run` command is used for both Round 1A and Round 1B. The script inside the container (`main.py`) is designed to automatically detect the type of task by reading the JSON files in the `/app/input` directory.
+
+### **Part 1A: Understand Your Document**
+
+For Round 1A, the task is to extract the structure (title and headings) from individual PDF files.
+
+**1. Prepare Input Files:**
+*   Place the PDF files you want to process (e.g., `document1.pdf`, `document2.pdf`) inside the `input` directory.
+
+**2. Execute the Container:**
+*   From the `my_project` directory, run the following command:
 
 ```bash
 docker run --rm \
@@ -57,9 +66,30 @@ docker run --rm \
   -v "$(pwd)/output:/app/output" \
   doc-analyzer
 ```
-*(Note for Windows users: You may need to replace `$(pwd)` with the full path to your project directory, such as `C:\path\to\my_project`)*
 
-**6. Check the Results**
+**3. Verify Output:**
+*   The container will process each PDF and generate a corresponding JSON file in the `output` directory. For an input file named `document1.pdf`, the output will be `document1.json`, containing the extracted title and hierarchical outline.
 
-Once the script finishes execution, the analysis results will be saved as a JSON file (e.g., `config_analysis.json`) in your local `my_project/output` directory.
+### **Part 1B: Persona-Driven Document Intelligence**
+
+For Round 1B, the task is to analyze a collection of documents based on a persona and a specific job-to-be-done, as defined in a configuration file.
+
+**1. Prepare Input Files:**
+*   Place the collection of PDF documents (e.g., `report1.pdf`, `study.pdf`) inside the `input` directory.
+*   Also in the `input` directory, create a JSON configuration file (e.g., `config.json`) that lists the documents to be analyzed and defines the `persona` and `job_to_be_done`.
+
+**2. Execute the Container:**
+*   From the `my_project` directory, run the same command as before:
+
+```bash
+docker run --rm \
+  -v "$(pwd)/input:/app/input" \
+  -v "$(pwd)/output:/app/output" \
+  doc-analyzer
 ```
+
+**3. Verify Output:**
+*   The container will process the instructions from `config.json`, analyze the specified PDFs, and generate a single, consolidated analysis file in the `output` directory named `config_analysis.json`. This file will contain the extracted sections and subsections most relevant to the persona and task.
+
+***
+**Note on Operating Systems**: The `$(pwd)` syntax is standard for macOS and Linux terminals. For **Windows Command Prompt**, replace `$(pwd)` with `%cd%`. For **Windows PowerShell**, `$(pwd)` should work as is.
